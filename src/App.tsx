@@ -6,7 +6,7 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter>
+    <BrowserRouter basename="/braveray">
       <Routes>
         <Route path="/" element={<Home />} />
       </Routes>
