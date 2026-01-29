@@ -20,7 +20,6 @@ const ContactComp = () => {
                 <div>
                   <h4 className="text-base font-semibold mb-2">发送邮件</h4>
                   <p className="text-gray-400 text-sm">support@braveray.top</p>
-                  <p className="text-gray-400 text-sm">support@braveray.top</p>
                 </div>
               </div>
               
@@ -29,19 +28,8 @@ const ContactComp = () => {
                   <Phone size={20} className="text-white" />
                 </div>
                 <div>
-                  <h4 className="text-base font-semibold mb-2">电话咨询</h4>
-                  <p className="text-gray-400 text-sm">+86 10 8888 6666</p>
+                  <h4 className="text-base font-semibold mb-2">咨询时间</h4>
                   <p className="text-gray-400 text-sm">周一至周五 9:00 - 18:00</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-4">
-                <div className="p-3 bg-gray-800 rounded-lg">
-                  <MapPin size={20} className="text-white" />
-                </div>
-                <div>
-                  <h4 className="text-base font-semibold mb-2">公司地址</h4>
-                  <p className="text-gray-400 text-sm">北京市海淀区中关村科技园<br/>创新大厦 A 座 16 层</p>
                 </div>
               </div>
             </div>
