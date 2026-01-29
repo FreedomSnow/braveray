@@ -8,7 +8,7 @@ const Footer = () => {
           {/* Brand */}
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <img src="/logo.png" alt="北锐科技" className="h-8 w-8" />
+              <img src="/braveray/logo.png" alt="北锐科技" className="h-8 w-8" />
               <span className="text-lg font-bold text-gray-900 tracking-tight">
                 北锐科技
               </span>

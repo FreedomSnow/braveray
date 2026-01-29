@@ -16,7 +16,7 @@ const Header = () => {
       <div className="container-1440 px-6 md:px-12 flex items-center justify-between h-16">
         {/* Logo */}
         <div className="flex items-center gap-3">
-          <img src="/logo.png" alt="北锐科技" className="h-8 w-8" />
+          <img src="/braveray/logo.png" alt="北锐科技" className="h-8 w-8" />
           <span className="text-lg font-semibold tracking-tight text-gray-900">
             北锐科技
           </span>
