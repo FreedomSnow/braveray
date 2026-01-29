@@ -6,9 +6,9 @@ const Header = () => {
 
   const navItems = [
     { name: '首页', href: '#home' },
-    { name: '解决方案', href: '#services' },
+    { name: '开发服务', href: '#services' },
     { name: '客户案例', href: '#cases' },
-    { name: '专家团队', href: '#team' },
+    { name: '开发团队', href: '#team' },
   ];
 
   return (

@@ -1,35 +1,58 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 const CaseStudies = () => {
   const [activeIndex, setActiveIndex] = useState(0);
+  const [isFocused, setIsFocused] = useState(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const cases = [
+ const cases = [
     {
       id: 1,
-      client: "FinTech Global",
-      industry: "金融科技",
-      title: "重构核心交易系统，实现毫秒级响应",
-      description: "面对日均百万级的交易请求，我们为 FinTech Global 重构了核心交易引擎。采用微服务架构与高性能消息队列，将系统吞吐量提升了 300%，平均响应时间降低至 5ms 以内，确保了金融级的高可用性与数据一致性。",
-      image: "https://images.unsplash.com/photo-1556761175-5973dc0f32e7?q=80&w=1932&auto=format&fit=crop"
+      client: "IM即时通讯",
+      industry: "移动应用",
+      title: "IM即时通讯SDK",
+      description: "自研IM即时通讯SDK，提供标准集成接口，支持多平台多应用无缝集成，实现高并发、低延迟的即时聊天功能，助力企业快速搭建专属通讯系统。",
+      image: import.meta.env.BASE_URL + "im-iphone.png"
     },
     {
       id: 2,
-      client: "EcoRetail Inc.",
-      industry: "智慧零售",
-      title: "全渠道零售数据中台建设",
-      description: "打通线上商城与线下 200+ 门店的数据孤岛。通过构建统一的数据中台，实现了库存实时共享、会员权益互通以及精准的个性化推荐。项目上线后，客户复购率提升了 25%，库存周转效率提高了 40%。",
-      image: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070&auto=format&fit=crop"
+      client: "车载流媒体",
+      industry: "车机应用",
+      title: "车载流媒体中间件",
+      description: "提供流媒体中间件，定制修改Chrome源码，提供数据下载和播放接口，可在车机系统上实现音乐和视频的流畅播放，支持多种定制化需求。",
+      image: import.meta.env.BASE_URL + "mediaplayer-car.png"
     },
     {
       id: 3,
-      client: "MediCare Plus",
-      industry: "医疗健康",
-      title: "基于 AI 的医疗影像辅助诊断平台",
-      description: "结合深度学习技术，开发了辅助医生诊断肺部影像的 AI 平台。系统对早期病灶的识别准确率达到 94%，大幅缩短了医生的阅片时间，有效缓解了医疗资源紧张的问题，目前已在 15 家三甲医院试点应用。",
-      image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?q=80&w=2070&auto=format&fit=crop"
+      client: "医疗上位机数据传输",
+      industry: "医疗上位机",
+      title: "医疗上位机数据高效传输",
+      description: "实现医疗硬件与上位机之间的数据高效、稳定传输，保障医疗数据的及时性与准确性，助力医疗信息化升级。",
+      image: import.meta.env.BASE_URL + "medical.png"
     }
   ];
+
+  // useEffect必须在cases声明之后
+  useEffect(() => {
+    if (!isFocused) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      timerRef.current = setInterval(() => {
+        setActiveIndex((prev) => (prev === cases.length - 1 ? 0 : prev + 1));
+      }, 4000);
+    } else {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    }
+    return () => {
+      if (timerRef.current) {
+        clearInterval(timerRef.current);
+        timerRef.current = null;
+      }
+    };
+  }, [isFocused, cases.length]);
 
   const nextSlide = () => {
     setActiveIndex((prev) => (prev === cases.length - 1 ? 0 : prev + 1));
@@ -50,26 +73,30 @@ const CaseStudies = () => {
               见证我们如何与客户携手，解决复杂挑战，创造真实价值。
             </p>
           </div>
-          
-          <div className="flex gap-4">
-            <button 
-              onClick={prevSlide}
-              className="p-3 rounded-full border border-border bg-background hover:bg-white hover:border-accent text-foreground transition-all"
-              aria-label="Previous case"
-            >
-              <ChevronLeft size={24} />
-            </button>
-            <button 
-              onClick={nextSlide}
-              className="p-3 rounded-full border border-border bg-background hover:bg-white hover:border-accent text-foreground transition-all"
-              aria-label="Next case"
-            >
-              <ChevronRight size={24} />
-            </button>
-          </div>
         </div>
 
-        <div className="relative overflow-hidden rounded-2xl bg-card shadow-custom">
+        <div
+          className="relative overflow-hidden rounded-2xl bg-card shadow-custom"
+          tabIndex={0}
+          onFocus={() => setIsFocused(true)}
+          onBlur={() => setIsFocused(false)}
+        >
+          <button
+            onClick={prevSlide}
+            className="hidden md:flex items-center justify-center absolute left-0 top-1/2 -translate-y-1/2 z-20 p-3 md:p-4 rounded-full border-2 border-accent bg-white text-accent shadow-lg hover:bg-accent hover:text-white transition-all"
+            aria-label="Previous case"
+            style={{ boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)' }}
+          >
+            <ChevronLeft size={28} />
+          </button>
+          <button
+            onClick={nextSlide}
+            className="hidden md:flex items-center justify-center absolute right-0 top-1/2 -translate-y-1/2 z-20 p-3 md:p-4 rounded-full border-2 border-accent bg-white text-accent shadow-lg hover:bg-accent hover:text-white transition-all"
+            aria-label="Next case"
+            style={{ boxShadow: '0 2px 8px 0 rgba(0,0,0,0.10)' }}
+          >
+            <ChevronRight size={28} />
+          </button>
           <div className="flex flex-col md:flex-row min-h-[500px]">
             {/* Image Side */}
             <div className="w-full md:w-1/2 relative h-64 md:h-auto overflow-hidden">

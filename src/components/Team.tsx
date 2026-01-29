@@ -11,13 +11,13 @@ const Team = () => {
     },
     {
       name: "张伟",
-      role: "资深安卓开发工程师",
+      role: "开发工程师",
       bio: "拥有丰富的安卓开发经验，熟悉多种安卓框架和工具，致力于打造高质量的移动应用。",
       image: `${baseUrl}developer0.png`
     },
     {
       name: "Jane",
-      role: "软件开发工程师",
+      role: "开发工程师",
       bio: "拥有10年软件开发经验，精通多种编程语言，擅长构建高性能、可扩展的软件系统。",
       image: `${baseUrl}developer1.png`
     },

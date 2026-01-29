@@ -50,7 +50,7 @@ const ContactComp = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">电子邮箱</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">电子邮箱*</label>
                   <input 
                     type="email" 
                     id="email" 
@@ -71,7 +71,7 @@ const ContactComp = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">需求描述</label>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">需求描述*</label>
                 <textarea 
                   id="message" 
                   rows={4} 
