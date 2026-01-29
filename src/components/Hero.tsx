@@ -1,4 +1,4 @@
-import { ArrowRight, Play } from 'lucide-react';
+import { ArrowRight, Smartphone, Car, Monitor, Cpu } from 'lucide-react';
 
 const Hero = () => {
   return (
@@ -17,7 +17,7 @@ const Hero = () => {
             <span className="text-accent">定制您的解决方案</span>
           </h1>
           <p className="text-lg md:text-xl text-muted-foreground mb-8 max-w-xl mx-auto md:mx-0 leading-relaxed">
-            我们提供移动应用、车机应用、上位机、嵌入式等全方位软件开发服务，致力于为每个客户提供专业、可靠的定制化解决方案，建立长期合作关系。
+            我们致力于为每个客户提供专业、可靠的定制化解决方案，建立长期合作关系。
           </p>
           <div className="flex flex-col sm:flex-row items-center gap-4 justify-center md:justify-start">
             <a 
@@ -30,20 +30,65 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Visual Element */}
+        {/* Service Tags */}
         <div className="flex-1 w-full relative">
-          <div className="relative aspect-square md:aspect-[4/3] rounded-2xl overflow-hidden shadow-2xl bg-gradient-to-br from-primary to-accent/80 p-1">
-            <div className="absolute inset-0 bg-background/10 backdrop-blur-sm"></div>
-            <img 
-              src="https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=2070&auto=format&fit=crop" 
-              alt="Technology Team" 
-              className="w-full h-full object-cover rounded-xl"
-            />
-            
-            {/* Floating Stats Card */}
-            <div className="absolute -bottom-6 -left-6 md:bottom-8 md:-left-8 bg-background p-6 rounded-lg shadow-custom max-w-[200px] border border-border">
-              <div className="text-4xl font-bold text-accent mb-1">98%</div>
-              <p className="text-sm text-muted-foreground font-medium">客户满意度<br/>基于 500+ 项目交付</p>
+          <div className="grid grid-cols-2 gap-4 md:gap-6">
+            {/* Mobile App Development */}
+            <div className="group relative p-3 rounded-xl bg-background border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg">
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center mb-2 group-hover:bg-accent/20 transition-colors">
+                <Smartphone className="w-4 h-4 text-accent" />
+              </div>
+              <h3 className="text-sm font-semibold text-foreground mb-1">移动应用开发</h3>
+              <p className="text-xs text-muted-foreground">iOS / Android / 跨平台</p>
+            </div>
+
+            {/* Vehicle System Development */}
+            <div className="group relative p-3 rounded-xl bg-background border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg">
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center mb-2 group-hover:bg-accent/20 transition-colors">
+                <Car className="w-4 h-4 text-accent" />
+              </div>
+              <h3 className="text-sm font-semibold text-foreground mb-1">车机应用开发</h3>
+              <p className="text-xs text-muted-foreground">智能车载系统</p>
+            </div>
+
+            {/* Desktop Application */}
+            <div className="group relative p-3 rounded-xl bg-background border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg">
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center mb-2 group-hover:bg-accent/20 transition-colors">
+                <Monitor className="w-4 h-4 text-accent" />
+              </div>
+              <h3 className="text-sm font-semibold text-foreground mb-1">上位机开发</h3>
+              <p className="text-xs text-muted-foreground">桌面应用 / 工控软件</p>
+            </div>
+
+            {/* Embedded Systems */}
+            <div className="group relative p-3 rounded-xl bg-background border border-border hover:border-accent/50 transition-all duration-300 hover:shadow-lg">
+              <div className="w-8 h-8 rounded-lg bg-accent/10 flex items-center justify-center mb-2 group-hover:bg-accent/20 transition-colors">
+                <Cpu className="w-4 h-4 text-accent" />
+              </div>
+              <h3 className="text-sm font-semibold text-foreground mb-1">嵌入式开发</h3>
+              <p className="text-xs text-muted-foreground">硬件控制 / 物联网</p>
+            </div>
+          </div>
+
+          {/* Target Audience */}
+          <div className="mt-4 bg-background p-6 min-h-[140px] flex flex-col justify-center rounded-lg shadow-custom border border-border">
+            <h3 className="text-lg font-bold text-foreground mb-4 text-center">适合人群</h3>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center">
+                <div className="text-2xl mb-2">🚀</div>
+                <p className="text-base font-semibold text-foreground mb-1">创业者</p>
+                <p className="text-sm text-muted-foreground">快速实现产品想法</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl mb-2">🏢</div>
+                <p className="text-base font-semibold text-foreground mb-1">企业外包</p>
+                <p className="text-sm text-muted-foreground">专业团队协作</p>
+              </div>
+              <div className="text-center">
+                <div className="text-2xl mb-2">💼</div>
+                <p className="text-base font-semibold text-foreground mb-1">兼职合作</p>
+                <p className="text-sm text-muted-foreground">灵活项目支持</p>
+              </div>
             </div>
           </div>
         </div>
