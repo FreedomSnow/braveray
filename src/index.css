@@ -1,0 +1,142 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --font-sans: var(--fontSans);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --shadow-x: var(--shadow-x);
+  --shadow-y: var(--shadow-y);
+  --shadow-blur: var(--shadow-blur);
+  --shadow-spread: var(--shadow-spread);
+  --shadow-color: var(--shadow-color);
+}
+
+:root {
+  --fontSans: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  
+  /* 专业科技蓝配色体系 Professional Tech Blue Scheme */
+  --background: rgba(255, 255, 255, 1); /* Pure White */
+  --foreground: rgba(15, 23, 42, 1); /* Slate 900 - Dark text */
+  
+  --card: rgba(255, 255, 255, 1);
+  --card-foreground: rgba(15, 23, 42, 1);
+  
+  --popover: rgba(255, 255, 255, 1);
+  --popover-foreground: rgba(15, 23, 42, 1);
+  
+  --primary: rgba(15, 23, 42, 1); /* Slate 900 - Main Brand Color (Dark Navy) */
+  --primary-foreground: rgba(248, 250, 252, 1); /* Slate 50 */
+  
+  --secondary: rgba(241, 245, 249, 1); /* Slate 100 - Light Backgrounds */
+  --secondary-foreground: rgba(15, 23, 42, 1);
+  
+  --muted: rgba(248, 250, 252, 1); /* Slate 50 */
+  --muted-foreground: rgba(100, 116, 139, 1); /* Slate 500 - Secondary text */
+  
+  --accent: rgba(37, 99, 235, 1); /* Blue 600 - Action Color */
+  --accent-foreground: rgba(255, 255, 255, 1);
+  
+  --destructive: rgba(239, 68, 68, 1); /* Red 500 */
+  --destructive-foreground: rgba(255, 255, 255, 1);
+  
+  --border: rgba(226, 232, 240, 1); /* Slate 200 */
+  --input: rgba(226, 232, 240, 1);
+  --ring: rgba(15, 23, 42, 0.1);
+  
+  --radius: 0.25rem; /* 4px - More square/professional for corporate */
+  
+  --chart-1: rgba(37, 99, 235, 1);
+  --chart-2: rgba(59, 130, 246, 1);
+  --chart-3: rgba(96, 165, 250, 1);
+  --chart-4: rgba(147, 197, 253, 1);
+  --chart-5: rgba(191, 219, 254, 1);
+  
+  /* Shadow variables */
+  --shadow-x: 0px;
+  --shadow-y: 4px;
+  --shadow-blur: 16px;
+  --shadow-spread: -2px;
+  --shadow-color: rgba(15, 23, 42, 0.08);
+}
+
+.dark {
+  --background: rgba(2, 6, 23, 1); /* Slate 950 */
+  --foreground: rgba(248, 250, 252, 1); /* Slate 50 */
+  
+  --card: rgba(15, 23, 42, 1); /* Slate 900 */
+  --card-foreground: rgba(248, 250, 252, 1);
+  
+  --popover: rgba(15, 23, 42, 1);
+  --popover-foreground: rgba(248, 250, 252, 1);
+  
+  --primary: rgba(248, 250, 252, 1);
+  --primary-foreground: rgba(15, 23, 42, 1);
+  
+  --secondary: rgba(30, 41, 59, 1);
+  --secondary-foreground: rgba(248, 250, 252, 1);
+  
+  --muted: rgba(30, 41, 59, 1);
+  --muted-foreground: rgba(148, 163, 184, 1);
+  
+  --accent: rgba(59, 130, 246, 1);
+  --accent-foreground: rgba(255, 255, 255, 1);
+  
+  --destructive: rgba(127, 29, 29, 1);
+  --destructive-foreground: rgba(248, 250, 252, 1);
+  
+  --border: rgba(30, 41, 59, 1);
+  --input: rgba(30, 41, 59, 1);
+  --ring: rgba(248, 250, 252, 0.1);
+  
+  --shadow-color: rgba(0, 0, 0, 0.3);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+}
+
+@layer utilities {
+  .shadow-custom {
+    box-shadow: var(--shadow-x) var(--shadow-y) var(--shadow-blur) var(--shadow-spread) var(--shadow-color);
+  }
+  /* Utility for specific fixed width content */
+  .container-1440 {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
+}

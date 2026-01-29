@@ -1,0 +1,17 @@
+{
+  "routes": [
+    {
+      "path": "/",
+      "src": "src/pages/Home.tsx"
+    }
+  ],
+  "components": [
+    {"name": "Header", "src": "src/components/Header.tsx"},
+    {"name": "Hero", "src": "src/components/Hero.tsx"},
+    {"name": "Services", "src": "src/components/Services.tsx"},
+    {"name": "CaseStudies", "src": "src/components/CaseStudies.tsx"},
+    {"name": "Team", "src": "src/components/Team.tsx"},
+    {"name": "ContactComp", "src": "src/components/ContactComp.tsx"},
+    {"name": "Footer", "src": "src/components/Footer.tsx"}
+  ]
+}
