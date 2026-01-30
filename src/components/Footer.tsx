@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="flex gap-6 text-sm text-gray-600">
             <a href="#" className="hover:text-gray-900 transition-colors">隐私政策</a>
             <a href="#" className="hover:text-gray-900 transition-colors">使用条款</a>
-            <a href="#" className="hover:text-gray-900 transition-colors">联系我们</a>
+            <a href="#contact" className="hover:text-gray-900 transition-colors">联系我们</a>
           </div>
         </div>
       </div>

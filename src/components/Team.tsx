@@ -7,25 +7,25 @@ const Team = () => {
       name: "Yunni",
       role: "架构师兼首席技术官",
       bio: "拥有 15 年软件服务经验，曾在多家全球 500 强科技公司担任技术架构师，致力于通过技术驱动应用变革。",
-      image: `${baseUrl}arch.png`
+      image: `${baseUrl}webp/arch.webp`
     },
     {
       name: "张伟",
       role: "开发工程师",
       bio: "拥有丰富的安卓开发经验，熟悉多种安卓框架和工具，致力于打造高质量的移动应用。",
-      image: `${baseUrl}developer0.png`
+      image: `${baseUrl}webp/developer0.webp`
     },
     {
       name: "Jane",
       role: "开发工程师",
       bio: "拥有10年软件开发经验，精通多种编程语言，擅长构建高性能、可扩展的软件系统。",
-      image: `${baseUrl}developer1.png`
+      image: `${baseUrl}webp/developer1.webp`
     },
     {
       name: "Chase",
       role: "产品经理",
       bio: "拥有丰富的产品管理经验，擅长需求分析与用户体验设计，致力于推动产品创新与市场成功。",
-      image: `${baseUrl}pm.png`
+      image: `${baseUrl}webp/pm.webp`
     }
   ];
 
