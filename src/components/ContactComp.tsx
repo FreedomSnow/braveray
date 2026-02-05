@@ -37,8 +37,19 @@ const ContactComp = () => {
 
           {/* Form */}
           <div className="bg-white rounded-lg p-8 md:p-10 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">立即联系我们</h3>
-            <form className="space-y-6">
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">联系我们</h3>
+            <form className="space-y-6" onSubmit={e => {
+              e.preventDefault();
+              const email = (document.getElementById('email') as HTMLInputElement)?.value.trim();
+              const message = (document.getElementById('message') as HTMLTextAreaElement)?.value.trim();
+              if (!email || !message) {
+                alert('请填写电子邮箱和需求描述');
+                return;
+              }
+              const subject = encodeURIComponent('开发服务咨询');
+              const body = encodeURIComponent(`${email} 发来消息：\n${message}`);
+              window.location.href = `mailto:support@braveray.top?subject=${subject}&body=${body}`;
+            }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">姓名</label>
