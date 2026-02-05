@@ -1,15 +1,20 @@
-import { Mail, Phone, MapPin, Send } from 'lucide-react';
+import { Mail, Phone, Send } from 'lucide-react';
+import { useI18n } from '../i18n';
 
 const ContactComp = () => {
+  const { messages } = useI18n();
+
+  const emailTo = messages.contact.emailValue;
+
   return (
     <section id="contact" className="py-24 md:py-32 bg-gray-900 text-white" data-cmp="ContactComp">
       <div className="container-1440 px-6 md:px-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
           {/* Info */}
           <div>
-            <h2 className="text-4xl md:text-4xl font-bold mb-8">准备好开始您的软件开发项目了吗？</h2>
+            <h2 className="text-4xl md:text-4xl font-bold mb-8">{messages.contact.heading}</h2>
             <p className="text-gray-400 text-lg mb-12 leading-relaxed max-w-lg">
-              无论您需要移动应用、车机应用、上位机还是嵌入式开发，我们都将全力以赴，为您提供专业可靠的定制化服务。
+              {messages.contact.intro}
             </p>
 
             <div className="space-y-10">
@@ -18,8 +23,8 @@ const ContactComp = () => {
                   <Mail size={20} className="text-white" />
                 </div>
                 <div>
-                  <h4 className="text-base font-semibold mb-2">发送邮件</h4>
-                  <p className="text-gray-400 text-sm">support@braveray.top</p>
+                  <h4 className="text-base font-semibold mb-2">{messages.contact.emailLabel}</h4>
+                  <p className="text-gray-400 text-sm">{messages.contact.emailValue}</p>
                 </div>
               </div>
               
@@ -28,8 +33,8 @@ const ContactComp = () => {
                   <Phone size={20} className="text-white" />
                 </div>
                 <div>
-                  <h4 className="text-base font-semibold mb-2">咨询时间</h4>
-                  <p className="text-gray-400 text-sm">周一至周五 9:00 - 18:00</p>
+                  <h4 className="text-base font-semibold mb-2">{messages.contact.timeLabel}</h4>
+                  <p className="text-gray-400 text-sm">{messages.contact.timeValue}</p>
                 </div>
               </div>
             </div>
@@ -37,57 +42,61 @@ const ContactComp = () => {
 
           {/* Form */}
           <div className="bg-white rounded-lg p-8 md:p-10 shadow-lg">
-            <h3 className="text-2xl font-bold text-gray-900 mb-8">联系我们</h3>
+            <h3 className="text-2xl font-bold text-gray-900 mb-8">{messages.contact.formTitle}</h3>
             <form className="space-y-6" onSubmit={e => {
               e.preventDefault();
               const email = (document.getElementById('email') as HTMLInputElement)?.value.trim();
               const message = (document.getElementById('message') as HTMLTextAreaElement)?.value.trim();
               if (!email || !message) {
-                alert('请填写电子邮箱和需求描述');
+                alert(messages.contact.alertMissing);
                 return;
               }
-              const subject = encodeURIComponent('开发服务咨询');
-              const body = encodeURIComponent(`${email} 发来消息：\n${message}`);
-              window.location.href = `mailto:support@braveray.top?subject=${subject}&body=${body}`;
+              const subject = encodeURIComponent(messages.contact.mailSubject);
+              const body = encodeURIComponent(
+                messages.contact.mailBodyTemplate
+                  .replace('{email}', email)
+                  .replace('{message}', message)
+              );
+              window.location.href = `mailto:${emailTo}?subject=${subject}&body=${body}`;
             }}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">姓名</label>
+                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">{messages.contact.form.nameLabel}</label>
                   <input 
                     type="text" 
                     id="name" 
                     className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                    placeholder="您的姓名"
+                    placeholder={messages.contact.form.namePlaceholder}
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">电子邮箱*</label>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">{messages.contact.form.emailLabel}</label>
                   <input 
                     type="email" 
                     id="email" 
                     className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                    placeholder="name@company.com"
+                    placeholder={messages.contact.form.emailPlaceholder}
                   />
                 </div>
               </div>
               
               <div>
-                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">公司名称</label>
+                <label htmlFor="company" className="block text-sm font-medium text-gray-700 mb-2">{messages.contact.form.companyLabel}</label>
                 <input 
                   type="text" 
                   id="company" 
                   className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all"
-                  placeholder="您的公司名称"
+                  placeholder={messages.contact.form.companyPlaceholder}
                 />
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">需求描述*</label>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">{messages.contact.form.messageLabel}</label>
                 <textarea 
                   id="message" 
                   rows={4} 
                   className="w-full px-4 py-3 rounded-lg bg-gray-50 border border-gray-200 text-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent transition-all resize-none"
-                  placeholder="请简要描述您的项目需求..."
+                  placeholder={messages.contact.form.messagePlaceholder}
                 ></textarea>
               </div>
 
@@ -95,7 +104,7 @@ const ContactComp = () => {
                 type="submit" 
                 className="w-full py-3 bg-gray-900 text-white font-medium rounded-lg hover:bg-gray-800 transition-colors flex items-center justify-center gap-2 shadow-md"
               >
-                发送信息 <Send size={18} />
+                {messages.contact.submit} <Send size={18} />
               </button>
             </form>
           </div>

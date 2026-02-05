@@ -1,36 +1,39 @@
 import { Cloud, Database, Shield, Monitor, Smartphone, Cpu } from 'lucide-react';
+import { useI18n } from '../i18n';
 
 const Services = () => {
+  const { messages } = useI18n();
+
   const services = [
     {
       icon: Smartphone,
-      title: "移动应用开发",
-      description: "专业开发 iOS 与 Android 原生及跨平台移动应用，为您打造流畅、稳定的移动端解决方案。"
+      title: messages.services.items[0].title,
+      description: messages.services.items[0].description
     },
     {
       icon: Monitor,
-      title: "车机应用开发",
-      description: "提供车载系统应用定制开发，针对车机环境优化交互体验，实现智能化车载功能。"
+      title: messages.services.items[1].title,
+      description: messages.services.items[1].description
     },
     {
       icon: Cloud,
-      title: "上位机开发",
-      description: "开发功能强大的上位机软件系统，实现设备监控、数据采集与分析，提升工业自动化水平。"
+      title: messages.services.items[2].title,
+      description: messages.services.items[2].description
     },
     {
       icon: Cpu,
-      title: "嵌入式开发",
-      description: "专注嵌入式系统软件开发，从底层驱动到应用层实现，为硬件设备赋予智能化能力。"
+      title: messages.services.items[3].title,
+      description: messages.services.items[3].description
     },
     {
       icon: Database,
-      title: "应用维护及二次开发",
-      description: "为现有系统提供专业维护、升级及功能扩展服务，确保应用持续稳定运行并满足新需求。"
+      title: messages.services.items[4].title,
+      description: messages.services.items[4].description
     },
     {
       icon: Shield,
-      title: "应用定制",
-      description: "根据客户独特需求量身定制软件解决方案，完美契合业务流程，实现个性化功能需求。"
+      title: messages.services.items[5].title,
+      description: messages.services.items[5].description
     }
   ];
 
@@ -38,10 +41,10 @@ const Services = () => {
     <section id="services" className="py-12 md:py-20 bg-background" data-cmp="Services">
       <div className="container-1440 px-6 md:px-12">
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">核心开发服务</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-4">{messages.services.heading}</h2>
           <div className="w-16 h-1 bg-accent mx-auto mb-6"></div>
           <p className="text-lg text-muted-foreground">
-            100%热忱投入每个开发项目，认真负责对待每一行代码，用专业和诚信赢得客户信任。
+            {messages.services.intro}
           </p>
         </div>
 
