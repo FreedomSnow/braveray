@@ -823,9 +823,13 @@ const getInitialLanguage = (): Language => {
   if (typeof window === "undefined") {
     return "en";
   }
-  const stored = localStorage.getItem("braveray_language");
-  if (isLanguage(stored)) {
-    return stored;
+  try {
+    const stored = localStorage.getItem("braveray_language");
+    if (isLanguage(stored)) {
+      return stored;
+    }
+  } catch {
+    // 忽略存储访问异常，继续回退到浏览器语言
   }
   const browser = (navigator.language || "").toLowerCase();
   if (browser.startsWith("zh")) return "zh-CN";
@@ -844,7 +848,11 @@ export const I18nProvider = ({ children }: { children: React.ReactNode }) => {
       document.documentElement.lang = language;
     }
     if (typeof window !== "undefined") {
-      localStorage.setItem("braveray_language", language);
+      try {
+        localStorage.setItem("braveray_language", language);
+      } catch {
+        // 忽略存储访问异常，避免影响渲染
+      }
     }
   }, [language]);
 
@@ -860,10 +868,19 @@ export const I18nProvider = ({ children }: { children: React.ReactNode }) => {
   return <I18nContext.Provider value={value}>{children}</I18nContext.Provider>;
 };
 
+const fallbackContext: I18nContextValue = {
+  language: "en",
+  setLanguage: () => {},
+  messages: translations.en
+};
+
 export const useI18n = () => {
   const context = useContext(I18nContext);
   if (!context) {
-    throw new Error("useI18n must be used within I18nProvider");
+    if (typeof console !== "undefined") {
+      console.warn("useI18n is used outside I18nProvider. Falling back to English messages.");
+    }
+    return fallbackContext;
   }
   return context;
 };

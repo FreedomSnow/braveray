@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from 'react';
 import { Mail, Phone, Send } from 'lucide-react';
 import { useI18n } from '../i18n';
 
@@ -5,6 +6,69 @@ const ContactComp = () => {
   const { messages } = useI18n();
 
   const emailTo = messages.contact.emailValue;
+  const iframeRef = useRef<HTMLIFrameElement | null>(null);
+  const [paypalHeight, setPaypalHeight] = useState(260);
+  const paypalContainerId = 'paypal-container-A2AJHLHX4XPMU';
+  const paypalHostedButtonId = 'A2AJHLHX4XPMU';
+  const paypalSdkSrc =
+    'https://www.paypal.com/sdk/js?client-id=BAASKeTmjp4PSGZq3cran8FREhj81yaIeThZJlCP82njsIwMTCSnKT0REvcu_p39s-DR0Sey_sujHu8oMs&components=hosted-buttons&disable-funding=venmo&currency=USD';
+
+  const paypalIframeSrcDoc = `<!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="utf-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1" />
+      <style>
+        html, body { margin: 0; padding: 0; background: #ffffff; min-height: 240px; }
+        body { padding: 16px; box-sizing: border-box; border-radius: 12px; overflow: hidden; }
+        #${paypalContainerId} { min-height: 220px; }
+      </style>
+    </head>
+    <body>
+      <div id="${paypalContainerId}"></div>
+      <script src="${paypalSdkSrc}" crossorigin="anonymous" async></script>
+      <script>
+        (function () {
+          function postHeight() {
+            var h = document.documentElement.scrollHeight || document.body.scrollHeight || 0;
+            window.parent && window.parent.postMessage({ type: 'paypal-height', height: h }, '*');
+          }
+          var attempts = 0;
+          var timer = window.setInterval(function () {
+            var paypalSdk = window.paypal;
+            if (paypalSdk && paypalSdk.HostedButtons) {
+              paypalSdk.HostedButtons({ hostedButtonId: "${paypalHostedButtonId}" })
+                .render("#${paypalContainerId}")
+                .then(function () {
+                  postHeight();
+                });
+              window.clearInterval(timer);
+              setTimeout(postHeight, 500);
+              return;
+            }
+            attempts += 1;
+            if (attempts >= 30) {
+              window.clearInterval(timer);
+            }
+          }, 300);
+          window.addEventListener('load', postHeight);
+          var observer = new MutationObserver(postHeight);
+          observer.observe(document.documentElement, { childList: true, subtree: true, attributes: true });
+        })();
+      <\/script>
+    </body>
+  </html>`;
+
+  useEffect(() => {
+    const handler = (event: MessageEvent) => {
+      if (event?.data?.type === 'paypal-height' && typeof event.data.height === 'number') {
+        const nextHeight = Math.max(260, Math.ceil(event.data.height));
+        setPaypalHeight(nextHeight);
+      }
+    };
+    window.addEventListener('message', handler);
+    return () => window.removeEventListener('message', handler);
+  }, []);
 
   return (
     <section id="contact" className="py-24 md:py-32 bg-gray-900 text-white" data-cmp="ContactComp">
@@ -36,6 +100,17 @@ const ContactComp = () => {
                   <h4 className="text-base font-semibold mb-2">{messages.contact.timeLabel}</h4>
                   <p className="text-gray-400 text-sm">{messages.contact.timeValue}</p>
                 </div>
+              </div>
+              <div className="mt-4" id="donate">
+                <iframe
+                  title="PayPal Hosted Button"
+                  ref={iframeRef}
+                  className="w-full max-w-[320px] border-0"
+                  style={{ height: paypalHeight }}
+                  srcDoc={paypalIframeSrcDoc}
+                  sandbox="allow-scripts allow-same-origin allow-forms allow-popups allow-popups-to-escape-sandbox allow-top-navigation-by-user-activation"
+                  allow="payment *"
+                />
               </div>
             </div>
           </div>

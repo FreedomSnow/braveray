@@ -140,3 +140,41 @@
     width: 100%;
   }
 }
+
+/* Keep header visible even when third-party styles are injected */
+header[data-cmp="Header"],
+header[data-cmp="Header"] * {
+  visibility: visible !important;
+  opacity: 1 !important;
+}
+
+/* Ensure PayPal overlays never cover the header */
+:root {
+  --header-z-index: 2147483646;
+}
+
+/* Header portal root lives outside app root */
+#braveray-header-portal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: var(--header-z-index);
+}
+
+header[data-cmp="Header"] {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: var(--header-z-index) !important;
+}
+
+.paypal-checkout-sandbox,
+.venmo-checkout-sandbox,
+[id^="paypal-overlay-"],
+[id^="venmo-overlay-"],
+iframe[name^="__paypal_checkout_sandbox_"],
+iframe[name^="__venmo_checkout_sandbox_"] {
+  z-index: calc(var(--header-z-index) - 1) !important;
+}

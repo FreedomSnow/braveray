@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { Menu, X, ChevronDown } from 'lucide-react';
 import { useI18n } from '../i18n';
 import {
@@ -11,6 +12,7 @@ import {
 
 const Header = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [portalRoot, setPortalRoot] = useState<HTMLElement | null>(null);
 
   const { language, setLanguage, messages } = useI18n();
 
@@ -65,8 +67,35 @@ const Header = () => {
     </DropdownMenu>
   );
 
-  return (
-    <header className="fixed w-full top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200" data-cmp="Header">
+  useEffect(() => {
+    if (typeof document === 'undefined') return;
+    const portalId = 'braveray-header-portal';
+    const ensurePortalRoot = () => {
+      let root = document.getElementById(portalId) as HTMLElement | null;
+      if (!root) {
+        root = document.createElement('div');
+        root.id = portalId;
+        root.setAttribute('data-portal', 'header');
+        document.documentElement.appendChild(root);
+      }
+      return root;
+    };
+
+    const root = ensurePortalRoot();
+    setPortalRoot(root);
+
+    const observer = new MutationObserver(() => {
+      if (!document.documentElement.contains(root)) {
+        document.documentElement.appendChild(root);
+      }
+    });
+
+    observer.observe(document.documentElement, { childList: true });
+    return () => observer.disconnect();
+  }, []);
+
+  const headerContent = (
+    <header className="fixed w-full top-0 z-[2147483648] isolate bg-white/95 backdrop-blur-md border-b border-gray-200" data-cmp="Header">
       <div className="container-1440 px-6 md:px-12 flex items-center justify-between h-16">
         {/* Logo */}
         <div className="flex items-center gap-3">
@@ -93,6 +122,12 @@ const Header = () => {
             className="px-6 py-2 bg-gray-900 text-white text-sm font-medium rounded hover:bg-gray-800 transition-colors"
           >
             {messages.header.cta}
+          </a>
+          <a
+            href="#donate"
+            className="px-6 py-2 border border-gray-900 text-gray-900 text-sm font-medium rounded hover:bg-gray-900 hover:text-white transition-colors"
+          >
+            打赏
           </a>
         </nav>
 
@@ -126,10 +161,23 @@ const Header = () => {
           >
             {messages.header.cta}
           </a>
+          <a
+            href="#donate"
+            className="w-full text-center px-6 py-3 border border-gray-900 text-gray-900 font-medium rounded"
+            onClick={() => setIsOpen(false)}
+          >
+            打赏
+          </a>
         </div>
       )}
     </header>
   );
+
+  if (portalRoot) {
+    return createPortal(headerContent, portalRoot);
+  }
+
+  return headerContent;
 };
 
 export default Header;
