@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://freedomsnow.github.io/braveray/sitemap.xml
